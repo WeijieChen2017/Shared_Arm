@@ -68,6 +68,7 @@ def train_a_unet(X, Y):
     slice_x = gbl_get_value("slice_x")
     n_pixel = X.shape[2]
     n_slice = X.shape[0]
+    flag_bypass = gbl_get_value("flag_bypass")
     model_id = gbl_get_value("model_id")
     # dir_model = gbl_get_value('dir_model')
     dir_model = './'
@@ -96,7 +97,7 @@ def train_a_unet(X, Y):
     # set traininig configurations
     conf = {"image_shape": (n_pixel, n_pixel, slice_x), "out_channel": 1, "filter": n_fliter, "depth": depth,
             "inc_rate": 2, "activation": 'relu', "dropout": True, "batchnorm": True, "maxpool": True,
-            "upconv": True, "residual": True, "shuffle": True, "augmentation": True,
+            "upconv": True, "residual": flag_bypass, "shuffle": True, "augmentation": True,
             "learning_rate": 1e-5, "decay": 0.0, "epsilon": 1e-8, "beta_1": 0.9, "beta_2": 0.999,
             "validation_split": 0.2632, "batch_size": batch_size, "epochs": epochs,
             "loss": "mse1e6", "metric": "mse", "optimizer": optimizer, "model_id": model_id}
